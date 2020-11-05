@@ -19,7 +19,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  def craate_a_user(email: "#{SecureRandom.hex(4)}@example.org")
+  def create_a_user(email: "#{SecureRandom.hex(4)}@example.org")
     User.create!(
       first_name: "Adam",
       email: email,
@@ -29,7 +29,7 @@ RSpec.describe User, type: :model do
 
   describe "#valid" do
     it "is valid when email is unique" do
-      craate_a_user
+      create_a_user
 
       user = User.new
       user.email = "adam@example.org"
@@ -37,11 +37,20 @@ RSpec.describe User, type: :model do
     end
 
     it "is invalid if the email is taken" do
-      craate_a_user(email: "adam@example.org")
+      create_a_user(email: "adam@example.org")
 
       user = User.new
       user.email = "adam@example.org"
       expect(user.valid?).not_to be true
+    end
+
+    it "is invalid if the username is taken" do
+      user = create_a_user  
+      another_user = create_a_user
+
+      expect(another_user).to be_valid
+      another_user.username = user.username 
+      expect(another_user).not_to be_valid
     end
   end
 end
