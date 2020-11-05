@@ -18,4 +18,6 @@
 #
 class Signt < ApplicationRecord
   belongs_to :place
+
+  validates :activity_type, presence: true
 end

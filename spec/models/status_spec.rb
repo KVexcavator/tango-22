@@ -10,5 +10,17 @@
 require 'rails_helper'
 
 RSpec.describe Status, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#valid" do
+    it "is invalid if status's text is blank" do
+      status = Status.create!(text: "something")
+      expect(status).to be_valid 
+
+      status.text = ""
+      expect(status).not_to be_valid
+
+      status.text = nil
+      expect(status).not_to be_valid
+    end
+
+  end
 end
