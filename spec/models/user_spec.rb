@@ -5,7 +5,7 @@
 #  id         :bigint           not null, primary key
 #  email      :string           not null
 #  first_name :string           not null
-#  is_public  :boolean          not null
+#  is_public  :boolean          default(TRUE), not null
 #  last_name  :string
 #  username   :string           not null
 #  created_at :datetime         not null
@@ -19,5 +19,29 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  def craate_a_user(email: "#{SecureRandom.hex(4)}@example.org")
+    User.create!(
+      first_name: "Adam",
+      email: email,
+      username: SecureRandom.hex(4)
+    )
+  end
+
+  describe "#valid" do
+    it "is valid when email is unique" do
+      craate_a_user
+
+      user = User.new
+      user.email = "adam@example.org"
+      expect(user.valid?).to be true
+    end
+
+    it "is invalid if the email is taken" do
+      craate_a_user(email: "adam@example.org")
+
+      user = User.new
+      user.email = "adam@example.org"
+      expect(user.valid?).not_to be true
+    end
+  end
 end

@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2020_11_02_163522) do
     t.string "first_name", null: false
     t.string "last_name"
     t.string "email", null: false
-    t.boolean "is_public", null: false
+    t.boolean "is_public", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
