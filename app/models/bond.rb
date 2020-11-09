@@ -19,6 +19,9 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Bond < ApplicationRecord
+  belongs_to :user
+  belongs_to :friend, class_name: "User"
+
   STATES = [
     REQUESTING = "requesting",
     FOLLOWING = "following",
