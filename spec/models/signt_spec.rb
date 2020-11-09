@@ -19,5 +19,17 @@
 require 'rails_helper'
 
 RSpec.describe Signt, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#valid?" do
+    it "should validate activtty type correctly" do
+      signt =Signt.new(place: Place.new)
+
+      signt.activity_type = "unknown"
+      expect(signt).not_to be_valid 
+      ["checkin", "checkout"].each do |type|
+        signt.activity_type = type
+        expect(signt).to be_valid
+      end
+    end
+  end
 end
+
