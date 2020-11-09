@@ -19,5 +19,12 @@
 require 'rails_helper'
 
 RSpec.describe Place, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#valid?" do
+    it "should vaidate the place tapes correctly" do
+      #Place::PLACE_TYPES.each do |type|
+      #  place.place_type = type
+      #  expect(place).to be_valid
+      #end
+    end
+  end
 end
