@@ -27,6 +27,19 @@ RSpec.describe User, type: :model do
     )
   end
 
+  describe "#save" do
+    it "capitalized the name correctly" do
+      user = create_a_user
+
+      user.first_name = "AdaM"
+      user.last_name = "van der Berg"
+      user.save
+
+      expect(user.first_name).to eq "Adam"
+      expect(user.last_name).to eq "van der Berg"
+    end
+  end
+
   describe "#valid" do
     it "is valid when email is unique" do
       user1 = create_a_user 
