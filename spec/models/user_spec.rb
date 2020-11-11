@@ -19,17 +19,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  def create_a_user(email: "#{SecureRandom.hex(4)}@example.org")
-    User.create!(
-      first_name: "Adam",
-      email: email,
-      username: SecureRandom.hex(4)
-    )
-  end
 
   describe "#save" do
     it "capitalized the name correctly" do
-      user = create_a_user
+      user = create(:user)
 
       user.first_name = "AdaM"
       user.last_name = "van der Berg"
@@ -42,24 +35,23 @@ RSpec.describe User, type: :model do
 
   describe "#valid" do
     it "is valid when email is unique" do
-      user1 = create_a_user 
-      user2 = create_a_user
+      user1 = create(:user) 
+      user2 = create(:user)
 
       expect(user2.email).not_to be user1.email 
       expect(user2).to be_valid
     end
 
     it "is invalid if the email is taken" do
-      create_a_user(email: "adam@example.org")
-
-      user = User.new
-      user.email = "adam@example.org"
+      user1 = create(:user)
+      user = build(:user)
+      user.email = user1.email
       expect(user.valid?).not_to be true
     end
 
     it "is invalid if the username is taken" do
-      user = create_a_user  
-      another_user = create_a_user
+      user = create(:user)  
+      another_user = create(:user)
 
       expect(another_user).to be_valid
       another_user.username = user.username 
@@ -67,7 +59,7 @@ RSpec.describe User, type: :model do
     end
 
     it "is invalid if user's first name is blank" do
-      user = create_a_user 
+      user = create(:user)
       expect(user).to be_valid
 
       user.first_name = ""
@@ -78,7 +70,7 @@ RSpec.describe User, type: :model do
     end
 
     it "is invalid if the email looks bogus" do
-      user = create_a_user
+      user = create(:user)
       expect(user).to be_valid
 
       user.email = ""
@@ -103,12 +95,12 @@ RSpec.describe User, type: :model do
 
   describe "#followings" do
     it "can list all of the user's followings" do
-      user1 = create_a_user
-      user2 = create_a_user
-      fol1 = create_a_user
-      fol2 = create_a_user
-      fol3 = create_a_user
-      fol4 = create_a_user
+      user1 = create(:user)
+      user2 = create(:user)
+      fol1 = create(:user)
+      fol2 = create(:user)
+      fol3 = create(:user)
+      fol4 = create(:user)
 
       Bond.create user: fol1,
         friend: user1,
