@@ -21,7 +21,7 @@ require 'rails_helper'
 RSpec.describe Signt, type: :model do
   describe "#valid?" do
     it "should validate activtty type correctly" do
-      signt =Signt.new(place: Place.new)
+      signt = build(:signt)
 
       signt.activity_type = "unknown"
       expect(signt).not_to be_valid 
