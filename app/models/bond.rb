@@ -27,7 +27,12 @@ class Bond < ApplicationRecord
     FOLLOWING = "following",
     BLOCKING = "blocking"
   ].freeze 
+  
+  enum state: {
+    requesting: REQUESTING,
+    following: FOLLOWING,
+    blocking: BLOCKING 
+  }
 
   validates :state, presence: true
-  validates :state, inclusion: { in: STATES }
 end
