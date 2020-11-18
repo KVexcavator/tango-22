@@ -39,6 +39,8 @@ group :development, :test do
   # rails generate rspec:install
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  # Preview email in the default browser instead of sending it
+  gem 'letter_opener_web', '~> 1.0'
 end
 
 group :development do
