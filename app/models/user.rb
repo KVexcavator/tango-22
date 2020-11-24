@@ -66,6 +66,10 @@ class User < ApplicationRecord
     message: "must be a valid email address"
   }
 
+  def to_param
+    username
+  end
+
   def login
     @login || username || email
   end
