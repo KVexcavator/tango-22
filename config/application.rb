@@ -31,5 +31,10 @@ module Tandidi
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # use gem polidhd layout
+    config.to_prepare do
+      Devise::Mailer.layout "mailer"
+    end
   end
 end
