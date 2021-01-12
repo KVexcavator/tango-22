@@ -36,7 +36,7 @@ class User < ApplicationRecord
 
   attr_writer :login 
 
-  has_many :post 
+  has_many :posts
   has_many :bonds
   has_many :followings,
     -> { Bond.following },
